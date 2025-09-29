@@ -6,59 +6,73 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #0d0d0d;
+      background-color: #0d0d0d;
       color: #fff;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      flex-direction: column;
+      margin: 0;
     }
+
     .box {
       background: #1e1e1e;
       padding: 40px;
       border-radius: 12px;
       text-align: center;
-      box-shadow: 0 0 15px rgba(0, 255, 180, 0.4);
+      box-shadow: 0 0 15px rgba(0, 255, 180, 0.3);
     }
+
     h1 {
       color: #00ffc8;
     }
+
     #timer {
-      font-size: 24px;
+      font-size: 28px;
       color: #ffcc00;
-      margin: 20px 0;
+      margin: 15px 0;
+    }
+
+    .note {
+      font-size: 14px;
+      color: #aaa;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="box" id="step1">
-    <h1>Preparing your download</h1>
-    <p>Wait for 10 seconds...</p>
+
+  <div class="box" id="mainBox">
+    <h1>Preparing your download...</h1>
     <div id="timer">10</div>
+    <p class="note">You will be redirected to subscribe.</p>
   </div>
 
   <script>
-    const step = new URLSearchParams(window.location.search).get("step");
+    const params = new URLSearchParams(window.location.search);
+    const step = params.get("step");
 
     if (step === "2") {
-      // Redirect to MediaFire
-      window.location.replace("https://www.mediafire.com/file/oghfpaq7rjef928/%25F0%259D%2590%2587%25F0%259D%2590%2582%25F0%259D%2590%258E_%25F0%259D%2590%2591%25F0%259D%2590%2580%25F0%259D%2590%2593_1.0.apk/file");
+      // User returned from YouTube, redirect to MediaFire
+      window.location.href = "https://www.mediafire.com/file/oghfpaq7rjef928/%25F0%259D%2590%2587%25F0%259D%2590%2582%25F0%259D%2590%258E_%25F0%259D%2590%2591%25F0%259D%2590%2580%25F0%259D%2590%2593_1.0.apk/file";
     } else {
+      // Countdown and redirect to YouTube
       let seconds = 10;
-      const timer = document.getElementById("timer");
+      const timerEl = document.getElementById("timer");
 
       const countdown = setInterval(() => {
         seconds--;
-        timer.textContent = seconds;
+        timerEl.textContent = seconds;
 
         if (seconds <= 0) {
           clearInterval(countdown);
-          // Redirect to your exact YouTube channel
-          window.location.replace("https://www.youtube.com/@hackers_colony_tech");
+          // Redirect to your YouTube channel (exact link)
+          window.location.href = "https://www.youtube.com/@hackers_colony_tech";
         }
       }, 1000);
     }
   </script>
+
 </body>
 </html>
