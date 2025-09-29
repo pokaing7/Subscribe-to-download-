@@ -8,8 +8,8 @@
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0d0d0d, #1c1c1c);
+      font-family: 'Segoe UI', sans-serif;
       color: #fff;
       display: flex;
       align-items: center;
@@ -71,22 +71,15 @@
   </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const step = params.get("step");
+    const downloadLink = "https://www.mediafire.com/file/oghfpaq7rjef928/%25F0%259D%2590%2587%25F0%259D%2590%2582%25F0%259D%2590%258E_%25F0%259D%2590%2591%25F0%259D%2590%2580%25F0%259D%2590%2593_1.0.apk/file";
+    const youtubeChannel = "https://www.youtube.com/@hackers_colony_tech";
 
     function redirectToDownload() {
-      // Direct link to your MediaFire file
-      window.location.href = "https://www.mediafire.com/file/oghfpaq7rjef928/%25F0%259D%2590%2587%25F0%259D%2590%2582%25F0%259D%2590%258E_%25F0%259D%2590%2591%25F0%259D%2590%2580%25F0%259D%2590%2593_1.0.apk/file";
+      window.location.href = downloadLink;
     }
 
-    if (step === "2") {
-      // After returning from YouTube
-      document.getElementById("mainHeading").textContent = "Download Ready!";
-      document.getElementById("timer").style.display = "none";
-      document.getElementById("noteText").textContent = "Click the button below to download your file.";
-      document.getElementById("downloadBtn").style.display = "inline-block";
-    } else {
-      // Initial countdown + redirect
+    // First-time visitor (no "step=2")
+    if (!window.location.search.includes("step=2")) {
       let seconds = 10;
       const timerEl = document.getElementById("timer");
 
@@ -96,10 +89,15 @@
 
         if (seconds <= 0) {
           clearInterval(countdown);
-          // Redirect to your YouTube channel
-          window.location.href = "https://www.youtube.com/@hackers_colony_tech";
+          window.location.href = youtubeChannel;
         }
       }, 1000);
+    } else {
+      // Returned from YouTube
+      document.getElementById("mainHeading").textContent = "Download Ready!";
+      document.getElementById("timer").style.display = "none";
+      document.getElementById("noteText").textContent = "Click the button below to download your file.";
+      document.getElementById("downloadBtn").style.display = "inline-block";
     }
   </script>
 
