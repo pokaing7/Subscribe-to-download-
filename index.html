@@ -2,86 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Subscribe to Unlock</title>
+  <title>Unlock Download</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #0d0d0d;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #fff;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
     }
 
-    .box {
-      background: #1e1e1e;
-      padding: 40px;
-      border-radius: 12px;
+    .container {
       text-align: center;
-      box-shadow: 0 0 15px rgba(0, 255, 180, 0.3);
+      background: #111;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,255,180,0.2);
     }
 
     h1 {
+      font-size: 28px;
       color: #00ffc8;
+      margin-bottom: 20px;
     }
 
     #timer {
-      font-size: 28px;
+      font-size: 40px;
       color: #ffcc00;
-      margin: 15px 0;
-    }
-
-    #unlockBtn {
-      display: none;
-      margin-top: 20px;
-      padding: 10px 25px;
-      font-size: 16px;
-      background-color: #00ffc8;
-      color: #000;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    #unlockBtn:hover {
-      background-color: #00e6b0;
+      margin: 20px 0;
     }
 
     .note {
       font-size: 14px;
       color: #aaa;
-      margin-top: 10px;
+    }
+
+    #downloadBtn {
+      display: none;
+      margin-top: 25px;
+      padding: 14px 32px;
+      background-color: #00ffc8;
+      color: #000;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    #downloadBtn:hover {
+      background-color: #00e6b0;
+      box-shadow: 0 0 10px #00ffc8;
     }
   </style>
 </head>
 <body>
 
-  <div class="box" id="mainBox">
+  <div class="container">
     <h1 id="mainHeading">Preparing your download...</h1>
     <div id="timer">10</div>
-    <button id="unlockBtn" onclick="redirectToMediaFire()">Click here to unlock download</button>
-    <p class="note" id="noteText">You will be redirected to subscribe...</p>
+    <button id="downloadBtn" onclick="redirectToDownload()">Download Now</button>
+    <p class="note" id="noteText">Please wait while we verify your subscription...</p>
   </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const step = params.get("step");
 
-    function redirectToMediaFire() {
+    function redirectToDownload() {
+      // Direct link to your MediaFire file
       window.location.href = "https://www.mediafire.com/file/oghfpaq7rjef928/%25F0%259D%2590%2587%25F0%259D%2590%2582%25F0%259D%2590%258E_%25F0%259D%2590%2591%25F0%259D%2590%2580%25F0%259D%2590%2593_1.0.apk/file";
     }
 
     if (step === "2") {
-      // Show unlock button after return from YouTube
+      // After returning from YouTube
       document.getElementById("mainHeading").textContent = "Download Ready!";
       document.getElementById("timer").style.display = "none";
-      document.getElementById("unlockBtn").style.display = "inline-block";
-      document.getElementById("noteText").textContent = "Click the button below to download.";
+      document.getElementById("noteText").textContent = "Click the button below to download your file.";
+      document.getElementById("downloadBtn").style.display = "inline-block";
     } else {
-      // Normal countdown and YouTube redirect
+      // Initial countdown + redirect
       let seconds = 10;
       const timerEl = document.getElementById("timer");
 
@@ -91,6 +96,7 @@
 
         if (seconds <= 0) {
           clearInterval(countdown);
+          // Redirect to your YouTube channel
           window.location.href = "https://www.youtube.com/@hackers_colony_tech";
         }
       }, 1000);
