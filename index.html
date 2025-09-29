@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Download Unlocker</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .box {
+      background: #1e1e1e;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 150, 0.3);
+    }
+
+    h1 {
+      color: #00ffaa;
+    }
+
+    #timer {
+      font-size: 28px;
+      color: #ffd700;
+      margin-top: 20px;
+    }
+
+    .note {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h1>Preparing Your Download</h1>
+    <p>Please wait while we verify...</p>
+    <div id="timer">10</div>
+    <div class="note">You’ll be redirected shortly</div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const step = params.get("step");
+
+    if (step === "2") {
+      // User returned from YouTube, now go to MediaFire
+      window.location.href = "https://www.mediafire.com/file/oghfpaq7rjef928/%25F0%259D%2590%2587%25F0%259D%2590%2582%25F0%259D%2590%258E_%25F0%259D%2590%2591%25F0%259D%2590%2580%25F0%259D%2590%2593_1.0.apk/file";
+    } else {
+      // Show timer and then redirect to YouTube
+      let timeLeft = 10;
+      const timer = document.getElementById("timer");
+
+      const countdown = setInterval(() => {
+        timeLeft--;
+        timer.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+          clearInterval(countdown);
+          window.location.href = "https://youtube.com/@hackers_colony_tech?si=MURgxK5PX667d_b2";
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
